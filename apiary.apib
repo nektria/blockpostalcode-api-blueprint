@@ -32,7 +32,11 @@ All api requests must use https.
     + `blocked_postal_codes`: '08001', '08038' (optional, array) list of strings to identify blocked postal codes for a certain time window
     
 ### Check if a Time Window is syntactically valid [POST /check/time_window]
-+ Attributes (TimeWindow)
++ Attributes
+    + `id`: `XKD-593` (required, string)
+    + `start_time`: `2016-03-29T15:00:00+01:00` (required, string) ISO8601 time at which the window starts
+    + `end_time`: `2016-03-29T17:00:00+01:00` (required, string) ISO8601 time at which the window ends
+    + `blocked_postal_codes`: '08001', '08038' (optional, array) list of strings to identify blocked postal codes for a certain time window
 + Response 204
             
 + Response 400 (application/json)
@@ -66,7 +70,11 @@ All api requests must use https.
     + `blocked_postal_codes`: '08007','08030' (required, array) - list of store postal codes that are blocked
     
 + Response 200 (application/json)
-    + Attributes (TimeWindow)
+    + Attributes
+        + `id`: `XKD-593` (required, string)
+        + `start_time`: `2016-03-29T15:00:00+01:00` (required, string) ISO8601 time at which the window starts
+        + `end_time`: `2016-03-29T17:00:00+01:00` (required, string) ISO8601 time at which the window ends
+F        + `blocked_postal_codes`: '08001', '08038' (optional, array) list of strings to identify blocked postal codes for a certain time window
 
 ### Modify a Store TimeWindow [POST /time-windows/{timewindow_id}/modify]
 The action will overwrite previous values of the fields that are provided in the request:
