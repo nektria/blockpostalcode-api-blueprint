@@ -1,0 +1,86 @@
+FORMAT: 1A
+
+# Block Postal Code
+
+The Block Postal Code API is designed to provide blockade by postal code functionality
+to the RECShipping Incentives API.
+
+## Security
+
+### Secure communication
+
+All api requests must use https.
+
+### Authentication Schemes
+
++ Basic (apikey)
+
+    You must provide an API key, which is a unique identifier for your account, as well as an application identifier that helps to
+    track which of your applications is making calls to the API.
+    + Headers
+        + Authorization: Basic YourApiKey
+
+
+## Group Base Types
+
+## TimeWindow [/timewindows]
+
++ Attributes (object)
+    + `id`: `XKD-593` (required, string)
+    + `start_time`: `2016-03-29T15:00:00+01:00` (required, string) ISO8601 time at which the window starts
+    + `end_time`: `2016-03-29T17:00:00+01:00` (required, string) ISO8601 time at which the window ends
+    + `blocked_postal_codes`: '08001', '08038' (optional, array) list of strings to identify blocked postal codes for a certain time window
+    
+### Check if a Time Window is syntactically valid [POST /check/time_window]
++ Attributes (TimeWindow)
++ Response 204
+            
++ Response 400 (application/json)
+    Invalid Time Window
+    + Body
+    
+            {
+                "status": "error",
+                "error": "start time is earlier than end time"
+            }
+
+##Group Blocking functionality
+
+### List TimeWindows [GET /time-windows?limit={limit}&offset={offset}&start_time={start_time}&end_time={end_time}&postal_codes={postal_codes}]
++ Parameters
+    + limit (optional, number) - Default 10, from 1 to 100. Number of returned values.
+    + offset (optional, number) - Default 0. Postion of the first returned record.
+    + `start_time` (optional, string)  - filter for ISO8601 time at which the window starts
+    + `end_time` (optional, string)  - filter for ISO8601 time at which the window ends
+    + `postal_codes` (optional, string)  - (comma separated value) filter of returned postal codes within the window
+    
++ Response 200 (application/json)
+    + Attributes 
+        + list (array[TimeWindow])
+
+### Create a TimeWindow [POST /time-windows]
++ Request (application/json)
++ Attributes (object)
+    + `start_time`: `2016-03-17T15:00:00+0100`(required, string)  - ISO8601 time at which the window starts
+    + `end_time`: `2016-03-17T17:00:00+0100` (required, string)  - ISO8601 time at which the window ends
+    + `blocked_postal_codes`: '08007','08030' (required, array) - list of store postal codes that are blocked
+    
++ Response 200 (application/json)
+    + Attributes (TimeWindow)
+
+### Modify a Store TimeWindow [POST /time-windows/{timewindow_id}/modify]
+The action will overwrite previous values of the fields that are provided in the request:
+start and end time, and  also postal codes that have been sent as blocked or unblocked
+Note that if the start or endtime of a TimeWindow is modified, the id of that TimeWindow
+may change.
+
++ Request (application/json)
++ Attributes (object)
+    + `start_time`: `2016-03-17T15:00:00+0100`(optional, string)  - ISO8601 time at which the window starts
+    + `end_time`: `2016-03-17T17:00:00+0100` (optional, string)  - ISO8601 time at which the window ends
+    + `blocked_postal_codes`: '08007','08030' (optional, array) - list of store postal codes that are blocked
+    + `unblocked_postal_codes`: '080011','08031' (optional, array) - list of store postal codes that are not blocked
+    
++ Response 200 (application/json)
+    + Attributes (TimeWindow)
+
