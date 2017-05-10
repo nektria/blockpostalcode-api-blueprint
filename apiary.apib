@@ -50,13 +50,13 @@ All api requests must use https.
 
 ##Group Blocking functionality
 
-### List TimeWindows [GET /time-windows?limit={limit}&offset={offset}&start_time={start_time}&end_time={end_time}&postal_codes={postal_codes}]
+### List TimeWindows [GET /time-windows?limit={limit}&offset={offset}&start_time={start_time}&end_time={end_time}&blocked_postal_codes={blocked_postal_codes}]
 + Parameters
     + limit (optional, number) - Default 10, from 1 to 100. Number of returned values.
     + offset (optional, number) - Default 0. Postion of the first returned record.
     + `start_time` (optional, string)  - filter for ISO8601 time at which the window starts
     + `end_time` (optional, string)  - filter for ISO8601 time at which the window ends
-    + `postal_codes` (optional, string)  - (comma separated value) filter of returned postal codes within the window
+    + `blocked_postal_codes` (optional, string)  - (comma separated value) filter of returned postal codes within the window
     
 + Response 200 (application/json)
     + Attributes 
@@ -69,13 +69,8 @@ All api requests must use https.
     + `end_time`: `2016-03-17T17:00:00+0100` (required, string)  - ISO8601 time at which the window ends
     + `blocked_postal_codes`: '08007','08030' (required, array) - list of store postal codes that are blocked
     
-+ Response 200 (application/json)
-    + Attributes
-        + `id`: `XKD-593` (required, string)
-        + `start_time`: `2016-03-29T15:00:00+01:00` (required, string) ISO8601 time at which the window starts
-        + `end_time`: `2016-03-29T17:00:00+01:00` (required, string) ISO8601 time at which the window ends
-F        + `blocked_postal_codes`: '08001', '08038' (optional, array) list of strings to identify blocked postal codes for a certain time window
-
++ Response 201 (application/json)
+    
 ### Modify a Store TimeWindow [POST /time-windows/{timewindow_id}/modify]
 The action will overwrite previous values of the fields that are provided in the request:
 start and end time, and  also postal codes that have been sent as blocked or unblocked
@@ -90,4 +85,3 @@ may change.
     + `unblocked_postal_codes`: '080011','08031' (optional, array) - list of store postal codes that are not blocked
     
 + Response 200 (application/json)
-    + Attributes (TimeWindow)
