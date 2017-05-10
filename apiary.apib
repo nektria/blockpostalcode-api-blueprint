@@ -29,14 +29,11 @@ All api requests must use https.
     + `id`: `XKD-593` (required, string)
     + `start_time`: `2016-03-29T15:00:00+01:00` (required, string) ISO8601 time at which the window starts
     + `end_time`: `2016-03-29T17:00:00+01:00` (required, string) ISO8601 time at which the window ends
-    + `blocked_postal_codes`: '08001', '08038' (optional, array) list of strings to identify blocked postal codes for a certain time window
+    + `blocked_postal_codes`: 08001, 08038 (optional, array) list of strings to identify blocked postal codes for a certain time window
     
 ### Check if a Time Window is syntactically valid [POST /check/time_window]
-+ Attributes
-    + `id`: `XKD-593` (required, string)
-    + `start_time`: `2016-03-29T15:00:00+01:00` (required, string) ISO8601 time at which the window starts
-    + `end_time`: `2016-03-29T17:00:00+01:00` (required, string) ISO8601 time at which the window ends
-    + `blocked_postal_codes`: '08001', '08038' (optional, array) list of strings to identify blocked postal codes for a certain time window
++ Attributes (TimeWindow)
+    
 + Response 204
             
 + Response 400 (application/json)
@@ -67,7 +64,7 @@ All api requests must use https.
 + Attributes (object)
     + `start_time`: `2016-03-17T15:00:00+0100`(required, string)  - ISO8601 time at which the window starts
     + `end_time`: `2016-03-17T17:00:00+0100` (required, string)  - ISO8601 time at which the window ends
-    + `blocked_postal_codes`: '08007','08030' (required, array) - list of store postal codes that are blocked
+    + `blocked_postal_codes`: 08007,08030 (required, array) - list of store postal codes that are blocked
     
 + Response 201 (application/json)
     
@@ -81,7 +78,7 @@ may change.
 + Attributes (object)
     + `start_time`: `2016-03-17T15:00:00+0100`(optional, string)  - ISO8601 time at which the window starts
     + `end_time`: `2016-03-17T17:00:00+0100` (optional, string)  - ISO8601 time at which the window ends
-    + `blocked_postal_codes`: '08007','08030' (optional, array) - list of store postal codes that are blocked
-    + `unblocked_postal_codes`: '080011','08031' (optional, array) - list of store postal codes that are not blocked
+    + `blocked_postal_codes`: 08007,08030 (optional, array) - list of store postal codes that are blocked
+    + `unblocked_postal_codes`: 080011,08031 (optional, array) - list of store postal codes that are not blocked
     
 + Response 200 (application/json)
